@@ -12,8 +12,8 @@ like SSH access.
 
 | Variant | Description |
 |---------|-------------|
-| **Basic** | SSH, USB ethernet, native camera (~1Hz in Fluidd) |
-| **Extended** | Basic + new camera stack with HW-accelerated streams |
+| **Basic** | SSH, USB ethernet, native camera (~1Hz in Fluidd). Retains all base functionality and cloud features. |
+| **Extended** | Basic + new camera stack with HW-accelerated streams. Modifies some base functionality; cloud features may not work. |
 
 ### Common Features
 
