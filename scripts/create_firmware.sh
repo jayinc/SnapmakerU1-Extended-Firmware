@@ -21,9 +21,6 @@ echo ">> Unpacking firmware..."
 echo ">> Extracting squashfs from rootfs.img..."
 unsquashfs -d "$TEMP_DIR/rootfs" "$TEMP_DIR/rk-unpacked/rootfs.img"
 
-echo ">> Add kernel modules to rootfs..."
-"$ROOT_DIR/scripts/helpers/compile_kernel_modules.sh" "$TEMP_DIR/rootfs/info/config-6.1" "$ROOT_DIR/tmp/kernel" "$TEMP_DIR/rootfs/lib/modules/"
-
 for overlay; do
   echo ">> Applying overlay $overlay..."
   if [[ -d "$overlay/patches/" ]]; then

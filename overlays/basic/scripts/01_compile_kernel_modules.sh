@@ -1,17 +1,20 @@
 #!/bin/bash
 
-set -xeo pipefail
 
-if [[ $# -ne 3 ]]; then
-  echo "Usage: $0 <kernel-config> <temp-dir> <output-dir>"
+if [[ $# -ne 1 ]]; then
+  echo "Usage: $0 <rootfs-dir>"
   exit 1
 fi
 
-KERNEL_CONFIG="$(realpath "$1")"
-TEMP_DIR="$(realpath -m "$2")"
-OUT_DIR="$(realpath -m "$3")"
+ROOT_DIR="$(realpath "$(dirname "$0")/../../..")"
+ROOTFS_DIR="$(realpath "$1")"
+KERNEL_CONFIG="$ROOTFS_DIR/info/config-6.1"
+TEMP_DIR="$ROOT_DIR/tmp/kernel"
+OUT_DIR="$ROOTFS_DIR/lib/modules"
 
-source ./vars.mk
+set -xeo pipefail
+
+source "$ROOT_DIR/vars.mk"
 
 if [[ ! -d "$TEMP_DIR/.git" ]]; then
   git init "$TEMP_DIR"
@@ -62,11 +65,9 @@ kernel_make M=drivers/net -j5
 # kernel_make drivers/net/wireguard/wireguard.ko
 # kernel_make drivers/net/wireless/mediatek/mt76/mt7921/mt7921u.ko
 
-if [[ -n "$OUT_DIR" ]]; then
-  mkdir -p "$OUT_DIR"
-  # do not overwrite existing modules
-  find . -type f -name '*.ko' -exec cp -vn '{}' "$OUT_DIR/" ';'
-fi
+mkdir -p "$OUT_DIR"
+# do not overwrite existing modules
+find . -type f -name '*.ko' -exec cp -vn '{}' "$OUT_DIR/" ';'
 
 exit 0
 
