@@ -15,7 +15,7 @@ $(BASIC_FIRMWARE_FILE): firmware/$(FIRMWARE_FILE) tools
 	./scripts/create_firmware.sh $< tmp/basic $@ overlays/basic overlays/camera-native
 
 $(EXTENDED_FIRMWARE_FILE): firmware/$(FIRMWARE_FILE) tools
-	./scripts/create_firmware.sh $< tmp/extended $@ overlays/basic overlays/camera-new
+	./scripts/create_firmware.sh $< tmp/extended $@ overlays/basic overlays/camera-new overlays/fluidd-upgrade
 
 basic_firmware: $(BASIC_FIRMWARE_FILE)
 extended_firmware: $(EXTENDED_FIRMWARE_FILE)
